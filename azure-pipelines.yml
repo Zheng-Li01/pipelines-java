@@ -98,15 +98,20 @@
 #         AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
 #       disdisplayName: 'Create work item on filure'
 
+# schedules:
+#   - cron: "0 18 * * *"
+#     displayName: Weekly Sunday build
+#     batch: false
+#     always: true
 schedules:
-  - cron: "0 18 * * *"
-    displayName: Weekly Sunday build
-    batch: false
-    always: true
+- cron: "0 0 * * *"
+  displayName: Daily midnight build
+  branches:
+    include:
+    - main
 
 trigger:
 - main
-- release/*
 
 strategy:
   matrix:
