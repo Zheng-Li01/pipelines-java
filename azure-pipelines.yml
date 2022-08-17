@@ -98,18 +98,29 @@
 #         AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
 #       disdisplayName: 'Create work item on filure'
 
+schedules:
+  - cron: "0 18 * * 1,3,5"
+    displayName: Weekly Sunday build
+    batch: false
+    always: true
 
 trigger:
 - main
 - release/*
 
-pr:
-  - main
-  - release/*
+# pr: none
+#   drafts: true
+#   autoCancel: false
+#   branches:
+#     include:
+#       - main
+#   - main
+#   - release/*
+  
 
 # pool:
-#   vmImage: "ubuntu-latest"
-  
+#   vmImage: "ubuntu-latest" 
+
 strategy:
   matrix:
     jdk10_linux:
