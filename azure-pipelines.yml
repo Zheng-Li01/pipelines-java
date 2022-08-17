@@ -3,10 +3,64 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
+# trigger:
+#   tags:
+#     include:
+#       - v2.*
+#     exclude:
+#       - v2.0
+#   batch: true
+#   branches:
+#     include:
+#       - master
+#       - release/*
+#     exclude:
+#       - release/old*
+#   paths:
+#     include:
+#       - docs
+#     exclude:
+#       - docs/README.md
 
+# jobs:
+# - job: 
+#   condition: and(succeeded(),ne(variables['Build.Reason'],'PullRequest'))
+#   steps:
+#     - checkout: https://github.com/Zheng-Li01/pipelines-java
+#     - script: echo Hello Word
+#   uses:
+#     repositories:
+#       - pipelines-java
 
+# - job: 
+#   workspace:
+#     clean: outputs 
+#   steps:
+#     - checkout: self
+#       clean: true
+#       fetchDepth: 25000
+#       lfs: false
+#       submodules: true
+#       path: $(Agent.BuildDirectory)\_work\1
+#       persistCredentials: true
+# trigger: none
 
+# jobs:
+# - job:
+#   condition: false
+#   displayName: 'macOS'
+#   pool:
+#     vmImage:  'masOS-latest'
+#   steps:
+#     - template: azure-pipelines-steps.mac.yml
 
+# - job: 
+#   condition: true
+#   displayName: 'Linux'
+#   pool:
+#     vmImage:  'ubuntu-latest'
+#   steps:
+#     - template: azure-pipelines.steps.linux.yml
 
 
 # parameters:
