@@ -127,23 +127,61 @@ strategy:
 pool:
   vmImage: $(imageName)
 
+# resources:
+#   containers:
+#     - container: pycontiner
+#       image: python:3.8
+      
+
+# resources:
+#   pipelines:
+#     - pipeline: securitylib
+#       source: security-ci
+#       project: testing1
+#       trigger: true
 
 steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: "1.8"
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'
+      mavenOptions: '-Xmx3072m'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: "1.8"
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      goals: 'package'
+  - bash: echo "runs first"
+  # - task: CmdLine@2
+  - task: NodeTool@0
+    displayName:  Node install
+    inputs:
+      versionSpec: '6.x'
+  #   inputs:
+  #     script: |
+  #       echo Write your commands here
+        
+  #       echo Hello world
+  #       az pipelines variable-group list --output table
+  #     failOnStderr: true
 
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: "JaCoCo"
-    summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/site/jacoco/jacoco.xml"
-    reportDirectory: "$(System.DefaultWorkingDirectory)/**/site/jacoco"
-    failIfCoverageEmpty: true
+
+
+  # - task: SqlAzureDacpacDeployment@1
+  #   retryCountOnTaskFailure: 0
+    
+  # - task: UsePythonVersion@0
+  #   inputs:
+  #     versionSpec: '3.7'
+  #     architecture: 'x64'
+  # - task: PublishTestResults@2
+  #   inputs:
+  #     testResultsFiles: "**/TEST-*.xml"
+  #   condition: succeededOrFailed()
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: "JaCoCo"
+      summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/site/jacoco/jacoco.xml"
+      reportDirectory: "$(System.DefaultWorkingDirectory)/**/site/jacoco"
+      failIfCoverageEmpty: true
     
