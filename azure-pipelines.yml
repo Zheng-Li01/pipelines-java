@@ -109,6 +109,7 @@ schedules:
   branches:
     include:
     - main
+  always: true
 
 trigger:
 - main
