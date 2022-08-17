@@ -1,3 +1,4 @@
+[![Build Status](https://devdiv.visualstudio.com/DevDiv/_apis/build/status/Zheng-Li01.pipelines-java?branchName=main)](https://devdiv.visualstudio.com/DevDiv/_build/latest?definitionId=17069&branchName=main)
 
 # Contributing
 
