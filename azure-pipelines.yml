@@ -108,19 +108,6 @@ trigger:
 - main
 - release/*
 
-# pr: none
-#   drafts: true
-#   autoCancel: false
-#   branches:
-#     include:
-#       - main
-#   - main
-#   - release/*
-  
-
-# pool:
-#   vmImage: "ubuntu-latest" 
-
 strategy:
   matrix:
     jdk10_linux:
@@ -130,16 +117,6 @@ strategy:
       imageName: "windows-latest"
       jdkVersion: "1.11"
   maxParallel: 2
-
-# strategy:
-#   matrix:
-#     linux:
-#       imageName: "ubuntu-latest"
-#     mac:
-#       imageName: "macOS-latest"
-#     windows:
-#       imageName: "windows-latest"
-#   maxParallel: :3
 
 pool:
   vmImage: $(imageName)
